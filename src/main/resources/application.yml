@@ -9,9 +9,3 @@ spring:
 server:
   servlet:
     context-path: /sell
-#logging:
-#  pattern:
-#    console: "%d - %msg%n"
-#  file: ./logs/sell.log
-#  level:
-#    com.sellerbuyer.LoggerTest: debug
