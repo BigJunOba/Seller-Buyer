@@ -1,4 +1,4 @@
-package com.sellerbuyer.Impl;
+package com.sellerbuyer.service.Impl;
 
 import com.sellerbuyer.dataobject.ProductCategory;
 import org.junit.Assert;
@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

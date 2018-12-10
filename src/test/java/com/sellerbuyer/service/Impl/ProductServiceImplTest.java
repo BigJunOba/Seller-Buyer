@@ -1,4 +1,4 @@
-package com.sellerbuyer.Impl;
+package com.sellerbuyer.service.Impl;
 
 import com.sellerbuyer.dataobject.ProductInfo;
 import com.sellerbuyer.enums.ProductStatusEnum;

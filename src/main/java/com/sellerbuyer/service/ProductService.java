@@ -1,6 +1,7 @@
 package com.sellerbuyer.service;
 
 import com.sellerbuyer.dataobject.ProductInfo;
+import com.sellerbuyer.dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public interface ProductService {
     ProductInfo save(ProductInfo productInfo);
 
     // 加库存
+    // 传入参数对应API里面的购物车里的商品Id和数量
+    void increaseStock(List<CartDTO> cartDTOList);
 
     // 减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 }
