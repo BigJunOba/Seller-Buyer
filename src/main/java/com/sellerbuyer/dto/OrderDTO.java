@@ -1,12 +1,16 @@
 package com.sellerbuyer.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sellerbuyer.dataobject.OrderDetail;
 import com.sellerbuyer.enums.OrderStatusEnum;
 import com.sellerbuyer.enums.PayStatusEnum;
+import com.sellerbuyer.utils.serializer.Data2LongSerializer;
 import lombok.Data;
 
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +21,8 @@ import java.util.List;
  * @create: 2018-12-10 08:34
  */
 @Data
+//@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     /** 订单id */
@@ -44,9 +50,11 @@ public class OrderDTO {
     private Integer payStatus;
 
     /** 创建时间 */
+    @JsonSerialize(using = Data2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间 */
+    @JsonSerialize(using = Data2LongSerializer.class)
     private Date updateTime;
 
     private List<OrderDetail> orderDetailList;

@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO create(OrderDTO orderDTO) {
 
         String orderId = KeyUtil.genUniqueKey();
-        BigDecimal orderAmouont = new BigDecimal(BigInteger.ZERO);
+        BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
 //        List<CartDTO> cartDTOList = new ArrayList<>();
 
         // 1. 查询商品(数量，价格)
@@ -64,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             // 2. 计算某一件商品的总价然后加上原来的订单总价
-            orderAmouont = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity()))
-                    .add(orderAmouont);
+            orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity()))
+                    .add(orderAmount);
             // 3. 订单详情入库，对应 POST /sell/buyer/order/create 这个API
             // 只包含商品id和数量)
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
@@ -79,9 +79,9 @@ public class OrderServiceImpl implements OrderService {
         // 3. 写入订单数据库(orderMaster)
         // API 只包含买家姓名、买家电话、买家地址、Openid、商品列表(内部包括商品id和数量)
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        orderMaster.setOrderId(orderId);
-        orderMaster.setOrderAmount(orderAmouont);
+        orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
