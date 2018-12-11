@@ -13,6 +13,7 @@ import com.sellerbuyer.exception.SellException;
 import com.sellerbuyer.repository.OrderDetailRepository;
 import com.sellerbuyer.repository.OrderMasterRepository;
 import com.sellerbuyer.service.OrderService;
+import com.sellerbuyer.service.PayService;
 import com.sellerbuyer.service.ProductService;
 import com.sellerbuyer.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     @Transactional
@@ -149,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
         productService.increaseStock(cartDTOList);
         // 4. 如果已支付，需要给用户退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
-            // TODO
+            payService.refund(orderDTO);
         }
         return orderDTO;
     }

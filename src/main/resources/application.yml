@@ -12,5 +12,13 @@ server:
   context-path: /sell
 
 wechat:
-  mpAppId: wx94bdd7833d0a81e9
-  mpAppSecret: a70a4bc42f32c0b3eab2a199ef45b040
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret: 47ccc303338cee6e62894fxxxxxxxxxxx
+#  mpAppId: wx94bdd7833d0a81e9
+#  mpAppSecret: a70a4bc42f32c0b3eab2a199ef45b040
+#  openAppId: wx6ad144e54af67d87
+#  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: D:/编程/IdeaProjects/sell/h5.p12
+  notifyUrl: http://junoba.nat100.top/sell/pay/notify
