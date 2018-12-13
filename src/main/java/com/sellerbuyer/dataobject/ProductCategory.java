@@ -1,5 +1,6 @@
 package com.sellerbuyer.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,6 +30,12 @@ public class ProductCategory {
 
     /** 类目编号 */
     private Integer categoryType;
+
+    @JsonIgnore
+    private Date createTime;
+
+    @JsonIgnore
+    private Date updateTime;
 
     public ProductCategory() {
     }
