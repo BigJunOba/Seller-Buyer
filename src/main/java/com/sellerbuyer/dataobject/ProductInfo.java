@@ -1,5 +1,8 @@
 package com.sellerbuyer.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sellerbuyer.enums.ProductStatusEnum;
+import com.sellerbuyer.utils.EnumUtils;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -36,4 +39,15 @@ public class ProductInfo {
 
     /** 商品类目编号. */
     private Integer categoryType;
+
+    /** 商品创建时间. */
+    private Date createTime;
+
+    /** 商品修改时间. */
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtils.getByCode(productStatus, ProductStatusEnum.class);
+    }
 }
