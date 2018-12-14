@@ -1,6 +1,7 @@
 package com.sellerbuyer.exception;
 
 import com.sellerbuyer.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * @program: sell
@@ -8,6 +9,7 @@ import com.sellerbuyer.enums.ResultEnum;
  * @author: JunOba
  * @create: 2018-12-10 08:46
  */
+@Getter
 public class SellException extends RuntimeException {
 
     private Integer code;

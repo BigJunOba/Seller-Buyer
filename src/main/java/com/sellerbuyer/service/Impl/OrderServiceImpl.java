@@ -9,6 +9,7 @@ import com.sellerbuyer.dto.OrderDTO;
 import com.sellerbuyer.enums.OrderStatusEnum;
 import com.sellerbuyer.enums.PayStatusEnum;
 import com.sellerbuyer.enums.ResultEnum;
+import com.sellerbuyer.exception.ResponseBankException;
 import com.sellerbuyer.exception.SellException;
 import com.sellerbuyer.repository.OrderDetailRepository;
 import com.sellerbuyer.repository.OrderMasterRepository;
@@ -70,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+//                throw new ResponseBankException();
             }
             // 2. 计算某一件商品的总价然后加上原来的订单总价
             orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity()))
