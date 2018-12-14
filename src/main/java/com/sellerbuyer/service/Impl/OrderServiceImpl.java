@@ -12,9 +12,7 @@ import com.sellerbuyer.enums.ResultEnum;
 import com.sellerbuyer.exception.SellException;
 import com.sellerbuyer.repository.OrderDetailRepository;
 import com.sellerbuyer.repository.OrderMasterRepository;
-import com.sellerbuyer.service.OrderService;
-import com.sellerbuyer.service.PayService;
-import com.sellerbuyer.service.ProductService;
+import com.sellerbuyer.service.*;
 import com.sellerbuyer.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -52,6 +50,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private PushMessageService pushMessageService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -95,6 +99,9 @@ public class OrderServiceImpl implements OrderService {
                 new CartDTO(e.getProductId(), e.getProductQuantity())
         ).collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+
+        // 发送websocket消息
+        webSocket.sendMessage("您有新的订单，请注意查收！订单号 : " + orderDTO.getOrderId());
         return orderDTO;
     }
 
@@ -175,6 +182,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("[完结订单] 更新失败， orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+        // 推送微信模板消息
+        // 注意 这里不需要抛出异常，因为推送消息不是那么重要，如果抛异常那么就会回滚，不能影响主要的业务。
+        pushMessageService.orderStatus(orderDTO);
         return orderDTO;
     }
 
