@@ -1,6 +1,7 @@
 package com.sellerbuyer.service.Impl;
 
 import com.sellerbuyer.dataobject.ProductCategory;
+import com.sellerbuyer.dataobject.dao.ProductCategoryDao;
 import com.sellerbuyer.repository.ProductCategoryRepository;
 import com.sellerbuyer.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
