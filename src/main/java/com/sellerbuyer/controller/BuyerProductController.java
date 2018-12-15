@@ -10,6 +10,7 @@ import com.sellerbuyer.service.ProductService;
 import com.sellerbuyer.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,10 @@ public class BuyerProductController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
+//    @Cacheable(cacheNames = "product", key = "123") // 加上缓存后，再次访问同一个url，直接从Redis中读，永远都不会进入该方法
+    @Cacheable(cacheNames = "product", key = "123", unless = "#result.getCode() != 0") // 只有返回码为0，即返回正确时才缓存
     public ResultVO getList() {
+
         // 1.查询所有的商家商品(千万不能把数据库查询放到for循环里面)
         List<ProductInfo> productInfoList = productService.findUpAll();
 

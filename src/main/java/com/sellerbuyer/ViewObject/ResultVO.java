@@ -2,6 +2,8 @@ package com.sellerbuyer.ViewObject;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @program: sell
  * @description: Http请求返回的最外层对象
@@ -9,7 +11,9 @@ import lombok.Data;
  * @create: 2018-12-09 17:46
  */
 @Data
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
+
+    private static final long serialVersionUID = 2078919375327690989L;
 
     /** 错误码 */
     private Integer code;

@@ -9,6 +9,8 @@ import com.sellerbuyer.service.ProductService;
 import com.sellerbuyer.utils.KeyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -122,6 +124,8 @@ public class SellerProductController {
     * @Date: 2018/12/13
     */
     @PostMapping("/save")
+//    @CachePut(cacheNames = "product", key = "123")    // 更新缓存，要求返回对象必须也是ResultVO
+    @CacheEvict(cacheNames = "product", key = "123")    // 清除缓存
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {

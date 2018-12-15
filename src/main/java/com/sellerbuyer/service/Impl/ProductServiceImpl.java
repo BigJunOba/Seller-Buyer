@@ -8,6 +8,8 @@ import com.sellerbuyer.exception.SellException;
 import com.sellerbuyer.repository.ProductInfoRepository;
 import com.sellerbuyer.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductInfoRepository repository;
 
     @Override
+//    @Cacheable(cacheNames = "productInfo", key = "123") // key不填或为空，默认为productId这个参数
     public ProductInfo findOne(String productId) {
         return repository.findOne(productId);
     }
@@ -43,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+//    @CachePut(cacheNames = "productInfo", key = "123")  // key不填或为空，默认为productInfo这个参数
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }
